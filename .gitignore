@@ -1,0 +1,7 @@
+.vscode
+*.sqlite3
+.ipynb_checkpoints
+__pycache__
+
+ml/*
+!ml/.gitkeep
