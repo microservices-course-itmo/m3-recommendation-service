@@ -6,7 +6,7 @@ import numpy as np
 import pathlib
 
 class KNN:
-    def __init__(self, path_to_data="../ml/"):
+    def __init__(self, path_to_data="ml/"):
         print(pathlib.Path().absolute())
         data_folder = Path(path_to_data)
         self.model = joblib.load(data_folder / "knn.joblib")
