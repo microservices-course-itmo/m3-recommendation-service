@@ -21,7 +21,7 @@ class BERT:
         df_rec = pd.read_csv(data_folder / "wines_winestyle.csv")
         self.df_rec = df_rec[["name"]]
 
-        for index, row in tqdm(self.df.iterrows()): 
+        for index, _ in tqdm(self.df.iterrows()): 
             self.df.at[index,'vector'] = self.to_str(self.df.at[index,'vector'])
         try:
             word_embedding_model = models.Transformer("../ml/bert/rubert-base-cased")
