@@ -24,7 +24,7 @@ class BERT:
         for index, _ in tqdm(self.df.iterrows()): 
             self.df.at[index,'vector'] = self.to_str(self.df.at[index,'vector'])
         try:
-            word_embedding_model = models.Transformer("../ml/bert/rubert-base-cased")
+            word_embedding_model = models.Transformer(path_to_data + "rubert-base-cased")
             pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
 
             self.bert_model = SentenceTransformer(modules=[word_embedding_model, pooling_model])
