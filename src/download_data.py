@@ -44,10 +44,10 @@ if __name__ == "__main__":
     bert_id = '1rKcJzivRxZADGJLzOJxEEcGvg6dipXfH'
 
     download_file_from_google_drive(knn_id, '/code/ml/knn.zip')
-    download_file_from_google_drive(bert_id, '/code/ml/bert.zip')
+    # download_file_from_google_drive(bert_id, '/code/ml/bert.zip')
 
     unpack('/code/ml/knn.zip', '/code/ml/')
-    unpack('/code/ml/bert.zip', '/code/ml/') 
+    # unpack('/code/ml/bert.zip', '/code/ml/') 
     #TODO remove zips
 # knn_id ='1XtTA2KJZcJ77gi1LcTRTh5mFTCoLVcQm'
 # bert_id = '1rKcJzivRxZADGJLzOJxEEcGvg6dipXfH'
