@@ -17,10 +17,12 @@ class KNN:
     def predict(self, input_data):
         try:
             ID = input_data['id']
-            NEIGHBORS = input_data['n_nbrs'] + 1
+            NEIGHBORS = input_data['n_nbrs']
 
             if type(ID) == str: ID = int(ID)
             if type(NEIGHBORS) == str: NEIGHBORS = int(NEIGHBORS)
+
+            NEIGHBORS += 1
 
             print(input_data)
             dist, nbrs = self.model.kneighbors([self.samples[ID]], NEIGHBORS)
