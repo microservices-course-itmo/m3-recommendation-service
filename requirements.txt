@@ -6,5 +6,4 @@ joblib
 sklearn
 nltk 
 tqdm 
-sentence_transformers
 drf-yasg
