@@ -18,6 +18,6 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    url(r"^api/(?P<endpoint_name>.+)/predict$", PredictView.as_view(), name="predict"),
-    url(r'^api/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    url(r"api/(?P<endpoint_name>.+)/predict$", PredictView.as_view(), name="predict"),
+    url(r'api/swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 ]
