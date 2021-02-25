@@ -18,6 +18,10 @@ class KNN:
         try:
             ID = input_data['id']
             NEIGHBORS = input_data['n_nbrs'] + 1
+
+            if type(ID) == str: ID = int(ID)
+            if type(NEIGHBORS) == str: NEIGHBORS = int(NEIGHBORS)
+
             print(input_data)
             dist, nbrs = self.model.kneighbors([self.samples[ID]], NEIGHBORS)
             nbrs = nbrs[0]
