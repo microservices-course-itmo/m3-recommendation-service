@@ -7,3 +7,5 @@ sklearn
 nltk 
 tqdm 
 drf-yasg
+pyyaml
+psycopg2

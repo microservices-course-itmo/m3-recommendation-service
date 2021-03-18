@@ -5,16 +5,17 @@ application = get_wsgi_application()
 
 
 from ml.registry import MLRegistry
-from ml.knn import KNN
-# from ml.bert import BERT
+# from ml.knn import KNN
+from ml.bert import BERT
 
 try: 
     registry = MLRegistry()
-    knn = KNN('/code/ml/knn/')
-    registry.add_algorithm("knn", knn)
+    # knn = KNN('/code/ml/knn/')
+    # registry.add_algorithm("knn", knn)
 
-    # bert = BERT("ml/bert/")
-    # registry.add_algorithm("bert", bert)
+    bert = BERT()
+    registry.add_algorithm("bert", bert)
+    print('ke')
 
 except Exception as e:
     print("Exception while loading the algorithms to the registry,", str(e))

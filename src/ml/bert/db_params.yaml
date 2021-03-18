@@ -1,0 +1,5 @@
+M_DB_NAME: "ml3_recommendation_service_db"
+M_USER_NAME: "ml3_recommendation_service"
+M_PASSWD: "ml3_recommendation_pass"
+M_HOST: "77.234.215.138"
+M_PORT: "18095"
