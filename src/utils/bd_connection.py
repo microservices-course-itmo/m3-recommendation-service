@@ -96,6 +96,56 @@ def single_insert(conn, insert_query, params):
         return -1
     
     cursor.close()
+
+
+def wine_catalog_info_insert(wine_id):
+    try:
+        catalog_conn = connect(param_dict_catalog)
+        select_query = f"SELECT id, name, description, gastronomy FROM wine_catalog_info WHERE id='{wine_id}'"
+        columns = ["id", "name", "description", "gastronomy"]
+        wine_description = postgresql_to_dataframe(catalog_conn, select_query, columns)
+        catalog_conn.close()
+    except Exception as e:
+        return False
+
+    try:
+        ml3_conn = connect(param_dict_ml3)
+        insert_query = "INSERT INTO wine_catalog_info (id, name, description, gastronomy) VALUES (%s,%s,%s)"
+        values = (wine_id, wine_description['name'][0], wine_description['description'][0], wine_description['gastronomy'][0])
+        single_insert(ml3_conn, insert_query, values)
+        ml3_conn.close()
+    except Exception as e:
+        return False
+    else:
+        return True
+
+
+def wine_vectors_insert(wine_id, name, vector):
+    try:
+        ml3_conn = connect(param_dict_ml3)
+        insert_query = "INSERT INTO wine_vectors (id, name, vector) VALUES (%s,%s,%s)"
+        values = (wine_id,name, vector)
+        single_insert(ml3_conn, insert_query, values)
+        ml3_conn.close()
+    except Exception as e:
+        return False
+    else:
+        return True
+
+
+def wine_bert_neighbours_update(wine_id, nbrs):
+    try:
+        ml3_conn = connect(param_dict_ml3)
+        insert_query = f"""UPDATE wine_bert_neighbors
+                            SET n_1 = %s, n_2 = %s, n_3 = %s, n_4 = %s, n_5 = %s
+                            WHERE id = '{wine_id}'"""
+        single_insert(ml3_conn, insert_query, nbrs)
+        ml3_conn.close()
+    except Exception as e:
+        return False
+    else:
+        return True
+
     
 ## Примеры работы с базой данных ##
 
