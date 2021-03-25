@@ -9,3 +9,7 @@ tqdm
 drf-yasg
 pyyaml
 psycopg2
+kafka-python
+protobuf
+sentence_transformers
+scipy
