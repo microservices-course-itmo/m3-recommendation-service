@@ -98,20 +98,24 @@ def single_insert(conn, insert_query, params):
     cursor.close()
 
 
-def wine_catalog_info_insert(wine_id):
+def wine_info_get(wine_id):
     try:
         catalog_conn = connect(param_dict_catalog)
-        select_query = f"SELECT id, name, description, gastronomy FROM wine_catalog_info WHERE id='{wine_id}'"
-        columns = ["id", "name", "description", "gastronomy"]
+        select_query = f"SELECT wine_id, description, gastronomy FROM wine_position WHERE wine_id='{wine_id}'"
+        columns = ["wine_id", "description", "gastronomy"]
         wine_description = postgresql_to_dataframe(catalog_conn, select_query, columns)
         catalog_conn.close()
     except Exception as e:
-        return False
+        print(e)
+    else:
+        return wine_description['description'][0], wine_description['gastronomy'][0]
 
+
+def wine_catalog_info_insert(wine_id, name, description, gastronomy):
     try:
         ml3_conn = connect(param_dict_ml3)
         insert_query = "INSERT INTO wine_catalog_info (id, name, description, gastronomy) VALUES (%s,%s,%s)"
-        values = (wine_id, wine_description['name'][0], wine_description['description'][0], wine_description['gastronomy'][0])
+        values = (wine_id, name, description, gastronomy)
         single_insert(ml3_conn, insert_query, values)
         ml3_conn.close()
     except Exception as e:
@@ -131,6 +135,19 @@ def wine_vectors_insert(wine_id, name, vector):
         return False
     else:
         return True
+
+
+def wine_vectors_get():
+    try:
+        ml3_conn = connect(param_dict_ml3)
+        select_query = "SELECT * FROM wine_vectors"
+        columns = ["wine_id", "name", "vector"]
+        wine_description = postgresql_to_dataframe(ml3_conn, select_query, columns)
+        ml3_conn.close()
+    except Exception as e:
+        print(e)
+    else:
+        return wine_description
 
 
 def wine_bert_neighbours_update(wine_id, nbrs):
