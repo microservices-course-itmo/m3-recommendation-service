@@ -126,7 +126,8 @@ def wine_catalog_info_insert(wine_id, name, description, gastronomy):
 def wine_vectors_insert(wine_id, name, vector):
     try:
         ml3_conn = connect(param_dict_ml3)
-        insert_query = "INSERT INTO wine_vectors (id, name, vector) VALUES (%s,%s,%s)"
+        insert_query = """INSERT INTO wine_vectors (id, name, vector) VALUES (%s,%s,%s) ON CONFLICT (id)
+                          DO UPDATE SET (name, vector) = (EXCLUDED.name, EXCLUDED.vector)"""
         values = (wine_id, name, vector)
         single_insert(ml3_conn, insert_query, values)
         ml3_conn.close()
