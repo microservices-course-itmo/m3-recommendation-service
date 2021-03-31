@@ -1,12 +1,18 @@
 import psycopg2
 import pandas as pd
+import configparser
+import os
+
+script_path = os.path.dirname(os.path.realpath(__file__))
+config = configparser.ConfigParser()  
+config.read(script_path + "/config.ini")
 
 # Параметры подключения к БД каталога
-C_DB_NAME = "catalog_service_db"
-C_USER_NAME = "catalog_service_reader"
-C_PASSWD = "readonly"
-C_HOST = "77.234.215.138"
-C_PORT = "18095"
+C_DB_NAME = config['CONFIG']["C_DB_NAME"]#"catalog_service_db"
+C_USER_NAME = config['CONFIG']["C_USER_NAME"]#"catalog_service_reader"
+C_PASSWD = config['CONFIG']["C_PASSWD"]#"readonly"
+C_HOST = config['CONFIG']["C_HOST"]#"77.234.215.138"
+C_PORT = config['CONFIG']["C_PORT"]#"18095"
 
 param_dict_catalog = {
     "database": C_DB_NAME,
@@ -17,11 +23,11 @@ param_dict_catalog = {
 }
 
 # Параметры подключения к нашей БД
-M_DB_NAME = "ml3_recommendation_service_db"
-M_USER_NAME = "ml3_recommendation_service"
-M_PASSWD = "ml3_recommendation_pass"
-M_HOST = "77.234.215.138"
-M_PORT = "18095"
+M_DB_NAME = config['CONFIG']["M_DB_NAME"]#"ml3_recommendation_service_db"
+M_USER_NAME = config['CONFIG']["M_USER_NAME"]#"ml3_recommendation_service"
+M_PASSWD = config['CONFIG']["M_PASSWD"]#"ml3_recommendation_pass"
+M_HOST = config['CONFIG']["M_HOST"]#"77.234.215.138"
+M_PORT = config['CONFIG']["M_PORT"]#"18095"
 
 param_dict_ml3 = {
     "database": M_DB_NAME,
