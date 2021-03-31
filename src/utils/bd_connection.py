@@ -9,11 +9,11 @@ C_HOST = "77.234.215.138"
 C_PORT = "18095"
 
 param_dict_catalog = {
-    "database" : C_DB_NAME,
-    "user" : C_USER_NAME,
-    "password" : C_PASSWD,
-    "host" : C_HOST,
-    "port" : C_PORT
+    "database": C_DB_NAME,
+    "user": C_USER_NAME,
+    "password": C_PASSWD,
+    "host": C_HOST,
+    "port": C_PORT
 }
 
 # Параметры подключения к нашей БД
@@ -23,13 +23,12 @@ M_PASSWD = "ml3_recommendation_pass"
 M_HOST = "77.234.215.138"
 M_PORT = "18095"
 
-
 param_dict_ml3 = {
-    "database" : M_DB_NAME,
-    "user" : M_USER_NAME,
-    "password" : M_PASSWD,
-    "host" : M_HOST,
-    "port" : M_PORT
+    "database": M_DB_NAME,
+    "user": M_USER_NAME,
+    "password": M_PASSWD,
+    "host": M_HOST,
+    "port": M_PORT
 }
 
 
@@ -38,14 +37,14 @@ param_dict_ml3 = {
 # Подключение
 def connect(param_dict):
     connection = None
-    
+
     try:
         print("Connecting to PostgreSQL database server...")
         connection = psycopg2.connect(**param_dict)
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
         return -1
-    
+
     print("Connection successfull")
     return connection
 
@@ -53,16 +52,16 @@ def connect(param_dict):
 # Получение DataFrame по запросу к БД
 def postgresql_to_dataframe(conn, select_query, column_names):
     cursor = conn.cursor()
-    
+
     try:
         cursor.execute(select_query)
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
         return -1
-    
+
     rows = cursor.fetchall()
     cursor.close()
-    
+
     df = pd.DataFrame(rows, columns=column_names)
     return df
 
@@ -70,22 +69,22 @@ def postgresql_to_dataframe(conn, select_query, column_names):
 # Создание таблицы в базе данных (не проверял на работоспособность!)
 def create_table(conn, create_query):
     cursor = conn.cursor()
-    
+
     try:
         cursor.execute(create_query)
         conn.commit()
     except (Exception, psycopg2.DatabaseError) as error:
         conn.rollback()
         print(error)
-    
+
     cursor.close()
     print("Table created successfully!")
-    
+
 
 # Добавление (одной) новой строки в таблицу
 def single_insert(conn, insert_query, params):
     cursor = conn.cursor()
-    
+
     try:
         cursor.execute(insert_query, params)
         conn.commit()
@@ -94,7 +93,7 @@ def single_insert(conn, insert_query, params):
         conn.rollback()
         cursor.close()
         return -1
-    
+
     cursor.close()
 
 
@@ -128,7 +127,7 @@ def wine_vectors_insert(wine_id, name, vector):
     try:
         ml3_conn = connect(param_dict_ml3)
         insert_query = "INSERT INTO wine_vectors (id, name, vector) VALUES (%s,%s,%s)"
-        values = (wine_id,name, vector)
+        values = (wine_id, name, vector)
         single_insert(ml3_conn, insert_query, values)
         ml3_conn.close()
     except Exception as e:
@@ -163,7 +162,6 @@ def wine_bert_neighbours_update(wine_id, nbrs):
     else:
         return True
 
-    
 ## Примеры работы с базой данных ##
 
 # Просмотр доступных (public) таблиц в нашей БД
