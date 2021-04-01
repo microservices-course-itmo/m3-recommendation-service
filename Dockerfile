@@ -11,7 +11,7 @@ EXPOSE 8000
 # ENTRYPOINT bash -c 'ls /code/ml'
 
 ENTRYPOINT bash -c "python src/download_data.py && python src/manage.py migrate && \
-                    python src/manage.py makemigrations \
-                    && python src/manage.py collect static && \
+                    python src/manage.py makemigrations &&\
+                    python src/manage.py collect static && \
                     python src/utils/kafka_consumers & \
                     python src/manage.py runserver 0.0.0.0:8000 &"
