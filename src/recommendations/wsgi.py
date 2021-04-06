@@ -8,6 +8,8 @@ from ml.registry import MLRegistry
 # from ml.knn import KNN
 from ml.bert import BERT
 
+from utils import custom_logging
+
 try: 
     registry = MLRegistry()
     # knn = KNN('/code/ml/knn/')

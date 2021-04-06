@@ -155,7 +155,7 @@ if LOGSTASH_URL:
         },
         'filters': {
             'service_name': {
-                '()': 'recommendations.logging.ServiceNameLoggingFilter'
+                '()': 'utils.custom_logging.ServiceNameLoggingFilter'
             }
         },
         'handlers': {

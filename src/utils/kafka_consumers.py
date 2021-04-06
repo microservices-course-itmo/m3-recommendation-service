@@ -7,6 +7,9 @@ from neighbours_recalculation import recalculate
 import configparser
 import os
 
+import custom_logging
+
+
 script_path = os.path.dirname(os.path.realpath(__file__))
 config = configparser.ConfigParser()  
 config.read(script_path + "/config.ini")
