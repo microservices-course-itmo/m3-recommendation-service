@@ -1,11 +1,17 @@
+import os
+
 import yaml
 from utils import bd_connection as con
 
 
 class BERT:
     def __init__(self):
+        config_path = os.path.join(
+            os.path.dirname(__file__),
+            'db_params.yaml'
+        )
 
-        with open('ml/bert/db_params.yaml', "r") as ini:
+        with open(config_path, "r") as ini:
             cfg = yaml.load(ini)
         self.param_dict_ml3 = {
             "database": cfg['M_DB_NAME'],
