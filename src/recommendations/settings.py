@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 
 from pathlib import Path
 import os
+import typing
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -136,3 +137,46 @@ STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 SWAGGER_SETTINGS = {
    'USE_SESSION_AUTH': False
 }
+
+LOGSTASH_URL: typing.Optional[str] = os.getenv('S_LOGSTASH_HOST', None)
+
+if LOGSTASH_URL:
+    LOGSTASH_HOST, _logstash_port_raw = LOGSTASH_URL.split(':')
+    LOGSTASH_PORT = int(_logstash_port_raw)
+
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'simple': {
+                'format': '%(name)s | %(message)s',
+                'datefmt': '%Y-%m-%d %H:%M:%S',
+            },
+        },
+        'filters': {
+            'service_name': {
+                '()': 'utils.custom_logging.ServiceNameLoggingFilter'
+            }
+        },
+        'handlers': {
+            'console': {
+                'level': 'DEBUG',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple',
+                'filters': ['service_name']
+            },
+            'logstash': {
+                'level': 'DEBUG',
+                'class': 'logstash.TCPLogstashHandler',
+                'host': LOGSTASH_HOST,
+                'port': LOGSTASH_PORT,
+                'version': 1,
+                'message_type': 'logstash',
+                'filters': ['service_name'],
+            }
+        },
+        'root': {
+            'handlers': ['console', 'logstash'],
+            'level': 'DEBUG',
+        },
+    }
