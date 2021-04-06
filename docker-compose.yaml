@@ -6,7 +6,7 @@ services:
       context: .
     image: 'ml3-recommendation-service'
     ports:
-      - '8000:8000'
+      - '8080:8080'
     volumes:
       - './src:/code/src'
     depends_on:
