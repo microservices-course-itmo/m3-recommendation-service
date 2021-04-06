@@ -100,8 +100,8 @@ def single_insert(conn, insert_query, params):
 def wine_info_get(wine_id):
     try:
         catalog_conn = connect(param_dict_catalog)
-        select_query = f"SELECT wine_id, description, gastronomy FROM wine_position WHERE wine_id='{wine_id}'"
-        columns = ["wine_id", "description", "gastronomy"]
+        select_query = f"SELECT id, description, gastronomy FROM wine_position WHERE id='{wine_id}'"
+        columns = ["id", "description", "gastronomy"]
         wine_description = postgresql_to_dataframe(catalog_conn, select_query, columns)
         catalog_conn.close()
     except Exception as e:
