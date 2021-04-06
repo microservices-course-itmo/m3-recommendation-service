@@ -12,7 +12,7 @@ RUN mkdir ./ml && python ./src/download_data.py
 
 COPY . .
 
-RUN python ./src/manage.py collectstatic
+RUN python ./src/manage.py collectstatic --noinput
 
 EXPOSE 8080
 
