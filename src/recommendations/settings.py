@@ -172,7 +172,6 @@ if LOGSTASH_URL:
                 'port': LOGSTASH_PORT,
                 'version': 1,
                 'message_type': 'logstash',
-                'formatter': 'simple',
                 'filters': ['service_name'],
             }
         },
