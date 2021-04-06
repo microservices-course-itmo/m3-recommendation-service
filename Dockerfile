@@ -14,6 +14,6 @@ COPY . .
 
 RUN python ./src/manage.py collectstatic --noinput
 
-EXPOSE 8080
+EXPOSE 8000
 
 CMD [ "./run.sh" ]
