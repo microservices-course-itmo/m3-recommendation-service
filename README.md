@@ -14,3 +14,4 @@ IP:PORT/api/*model name*/predict
 * Simonov Kirill
 
 Group M3405
+its killing us
